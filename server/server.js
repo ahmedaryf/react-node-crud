@@ -33,6 +33,33 @@ app.post("/student", (req, res) => {
     })
 })
 
+app.get("/read/:id", (req, res) => {
+    const sql = "SELECT * FROM student WHERE id = ?";
+    const id = req.params.id;
+    db.query(sql, [id], (err, result) => {
+        if(err) return res.json({message: "Server Error"});
+        return res.json(result);
+    })
+})
+
+app.put("/update/:id", (req, res) => {
+    const sql = "UPDATE student SET name = ?, email = ? WHERE id = ?";
+    const id = req.params.id;
+    db.query(sql, [req.body.name, req.body.email, id], (err, result) => {
+        if(err) return res.json({message: "There was an Error"});
+        return res.json(result);
+    })
+})
+
+app.delete("/delete/:id", (req, res) => {
+    const sql = "DELETE FROM student WHERE id = ?";
+    const id = req.params.id;
+    db.query(sql, [id], (err, result) => {
+    if(err) return res.json({message: "There was an Error"});
+    return res.json(result);
+    })
+})
+
 app.listen(8070, () => {
     console.log("Sever Listenin");
 })

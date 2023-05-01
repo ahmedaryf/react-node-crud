@@ -11,6 +11,15 @@ function Home() {
         .catch((err) => {console.log(err)})
     }, []);
 
+    const handleDelete = (id) => {
+        axios.delete("http://localhost:8070/delete/" + id)
+        .then(res => {
+            
+            window.location.reload();
+        })
+        .catch(err => console.log(err))
+
+    }
   return (
     <div className='row mt-5'>
     <div className='d-flex justify-content-center'>
@@ -29,7 +38,9 @@ function Home() {
                         <div className='card-text'>
                             <h5>{result.email}</h5>
                         </div>
-                        <button className='btn btn-outline-danger btn-sm mt-5' >Delete</button>
+                        <button onClick={() => handleDelete(result.id)} className='btn btn-outline-danger btn-sm mt-5 me-2' >Delete</button>
+                        <Link to={`/read/${result.id}`} className='btn btn-outline-success btn-sm mt-5 me-2' >Read</Link>
+                        <Link to={`/edit/${result.id}`} className='btn btn-outline-warning btn-sm mt-5 me-4' >Edit</Link>
                         </div>
                     </div>
                 </div>
