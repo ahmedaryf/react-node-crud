@@ -38,7 +38,12 @@ function Home() {
                         <div className='card-text'>
                             <h5>{result.email}</h5>
                         </div>
-                        <button onClick={() => handleDelete(result.id)} className='btn btn-outline-danger btn-sm mt-5 me-2' >Delete</button>
+                        <button onClick={() => {
+                            if (window.confirm('Are you sure you want to delete this item?')) {
+                                handleDelete(result.id);
+                            }
+                            }} className='btn btn-outline-danger btn-sm mt-5 me-2' >Delete</button>
+
                         <Link to={`/read/${result.id}`} className='btn btn-outline-success btn-sm mt-5 me-2' >Read</Link>
                         <Link to={`/edit/${result.id}`} className='btn btn-outline-warning btn-sm mt-5 me-4' >Edit</Link>
                         </div>
